@@ -2,7 +2,7 @@
 //   set the user's hit points. 
 //   change the site layout to show the game. 
 // Set up array of words
-// get a way to randomly pick a word 
+// get a way to randomly pick a word  (possibly order monsters by CR rating)
 // display picture of monster as a hint
 // find out the length of the word
 // display the blank spaces for each blank character
@@ -15,6 +15,6 @@
 // If they beat the monster, they get to go on to another monster
 // pick new word randomly from array, it cannot be one already chosen
 // display image of the monster
-// 
-// 
-// 
+// repeat steps above until user has either 
+//   run out of HP
+//   beaten all of the monsters
