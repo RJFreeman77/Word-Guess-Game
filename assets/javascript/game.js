@@ -1,5 +1,3 @@
-
-
 var monsterAry = [
     "Kobold",
     "Goblin",
@@ -16,25 +14,37 @@ var monsterAry = [
     "Chimera",
 ];
 var currentLife = 10;
-var currentWord = $("#currentWord");
+var currentWordP = $("#currentWord");
 var lettersGuessed = $("#lettersGuessed");
 var lifePoints = $("#lifePoints");
 
 
 $("#start-button").on("click", function () {
-    startGame();
+    
+    currentWordP.html("");
     lettersGuessed.html("");
+    startGame();
 
 });
 
 function startGame() {
+    var currentLife = 10;
     lifePoints.html(currentLife);
     var random = Math.floor(Math.random() * monsterAry.length);
     var tempMonster = monsterAry[random].toUpperCase();
     console.log(random);
     console.log(tempMonster);
+    
+    var hiddenWord = [];
 
+    for (i = 0; i < tempMonster.length; i++) {
+        hiddenWord.push("_");
+    }
 
+    console.log(hiddenWord);
+    var tempWord = hiddenWord.join(" ");
+    console.log(tempWord);
+    currentWordP.append(tempWord);
 
     var userGuessAry = [];
     document.onkeydown = function (event) {
@@ -42,19 +52,18 @@ function startGame() {
         var letterIndex = tempMonster.indexOf(keyPress);
         if (letterIndex >= 0) {
             // need to figure out how to list out dashes for each letter. Then replace letters with correct guesses here.
-            console.log("good");
+            
+            
+            console.log("match");
         } else {
             currentLife--;
             lifePoints.html(currentLife);
             lettersGuessed.append(" " + keyPress + ",");
         }
 
-
-
-
-        // console.log(keyPress);
-        userGuessAry.push(keyPress);
-        // console.log(userGuessAry);
+        console.log(keyPress);
+        
+        console.log(userGuessAry);
 
     }
 
