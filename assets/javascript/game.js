@@ -15,40 +15,51 @@ var monsterAry = [
     "Wereboar",
     "Chimera",
 ];
-var userLife = 50;
+var currentLife = 10;
 var currentWord = $("#currentWord");
 var lettersGuessed = $("#lettersGuessed");
 var lifePoints = $("#lifePoints");
-var tempMonster = monsterAry[random];
+
 
 $("#start-button").on("click", function () {
     startGame();
+    lettersGuessed.html("");
 
 });
 
 function startGame() {
+    lifePoints.html(currentLife);
     var random = Math.floor(Math.random() * monsterAry.length);
+    var tempMonster = monsterAry[random].toUpperCase();
     console.log(random);
-    
     console.log(tempMonster);
+
+
+
     var userGuessAry = [];
-    document.onkeydown = function(event) {
-        var keyPress = event.key;
-        console.log(keyPress);
+    document.onkeydown = function (event) {
+        var keyPress = event.key.toUpperCase();
+        var letterIndex = tempMonster.indexOf(keyPress);
+        if (letterIndex >= 0) {
+            // need to figure out how to list out dashes for each letter. Then replace letters with correct guesses here.
+            console.log("good");
+        } else {
+            currentLife--;
+            lifePoints.html(currentLife);
+            lettersGuessed.append(" " + keyPress + ",");
+        }
+
+
+
+
+        // console.log(keyPress);
         userGuessAry.push(keyPress);
-        console.log(userGuessAry);
-    
-    
-    
+        // console.log(userGuessAry);
+
     }
 
 
 
-}
-
-document.onkeydown = function(event) {
-    var keyPress = event.key;
-    console.log(keyPress);
 }
 
 
