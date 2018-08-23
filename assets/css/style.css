@@ -5,10 +5,22 @@ body{
 html {
     height: 100%;
 }
-.bg {
-    background-image: url(../images/country-quilt-dark.png);
+hr {
+    margin: 18px 0;
+}
+.bg-dark {
+    /* background-image: url(../images/tactile_noise_@2X.png); */
     height: 100%;
     background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+} 
+
+.jumbotron {
+    padding-top: 1rem; 
+    padding-bottom: 1rem;
+
+}
+
+.game-area {
+    
+
 }
