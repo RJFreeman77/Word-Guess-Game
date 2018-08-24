@@ -20,7 +20,7 @@ var lifePoints = $("#lifePoints");
 
 
 $("#start-button").on("click", function () {
-    
+
     currentWordP.html("");
     lettersGuessed.html("");
     startGame();
@@ -34,7 +34,7 @@ function startGame() {
     var tempMonster = monsterAry[random].toUpperCase();
     console.log(random);
     console.log(tempMonster);
-    
+
     var hiddenWord = [];
 
     for (i = 0; i < tempMonster.length; i++) {
@@ -43,6 +43,7 @@ function startGame() {
 
     console.log(hiddenWord);
     var tempWord = hiddenWord.join(" ");
+
     console.log(tempWord);
     currentWordP.append(tempWord);
 
@@ -50,19 +51,23 @@ function startGame() {
     document.onkeydown = function (event) {
         var keyPress = event.key.toUpperCase();
         var letterIndex = tempMonster.indexOf(keyPress);
-        if (letterIndex >= 0) {
-            // need to figure out how to list out dashes for each letter. Then replace letters with correct guesses here.
-            
-            
+        var duplicateLetterCheck = userGuessAry.indexOf(keyPress);
+        console.log(duplicateLetterCheck);
+        if (letterIndex >= 0 && duplicateLetterCheck < 0) {
             console.log("match");
-        } else {
+            // need to figure out how to list out dashes for each letter. Then replace letters with correct guesses here.
+            // look at .split();
+            // will need to split on .ep() and then replace the _ with the letter
+
+        } else if (duplicateLetterCheck < 0) {
             currentLife--;
             lifePoints.html(currentLife);
+            userGuessAry.push(keyPress);
             lettersGuessed.append(" " + keyPress + ",");
         }
 
         console.log(keyPress);
-        
+
         console.log(userGuessAry);
 
     }
