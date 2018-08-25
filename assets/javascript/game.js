@@ -52,18 +52,23 @@ function startGame() {
         var keyPress = event.key.toUpperCase();
         var letterIndex = tempMonster.indexOf(keyPress);
         var duplicateLetterCheck = userGuessAry.indexOf(keyPress);
-        console.log(duplicateLetterCheck);
         if (letterIndex >= 0 && duplicateLetterCheck < 0) {
             console.log("match");
+            // do for loop in here, compare each letter, relpace where you match
+
+
             // need to figure out how to list out dashes for each letter. Then replace letters with correct guesses here.
             // look at .split();
             // will need to split on .ep() and then replace the _ with the letter
-
+            // maybe i can assign the letter to each "_" with the .data() function. Then, I can say, "if userGuess === $(this).data(x);"
+            // make each space a span
         } else if (duplicateLetterCheck < 0) {
             currentLife--;
             lifePoints.html(currentLife);
             userGuessAry.push(keyPress);
-            lettersGuessed.append(" " + keyPress + ",");
+            lettersGuessed.append(" " + keyPress + ", ");
+        } else {
+            console.log("already guessed");
         }
 
         console.log(keyPress);
