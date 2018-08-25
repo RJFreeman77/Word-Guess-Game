@@ -69,7 +69,7 @@ function startGame() {
     $("#hint").text(monsterHints[random])
     // Dynamically set the life points based on number of unique characters
     var uniqueChar = GetUnique(tempMonster).length;
-    var currentLife = Math.floor(uniqueChar * 1.5);
+    var currentLife = Math.floor(uniqueChar * 1.5 + 1);
     lifePointsP.text(currentLife);
 
     // populate hidden word area
@@ -112,6 +112,7 @@ function startGame() {
             lettersGuessed.append(" " + keyPress + ", ");
             if (currentLife === 0) {
                 $("#lose-message").css("display", "block");
+                $("#monster-span").text(tempMonster);
                 $("#start-button").html("Start Over");
             }
         } else {
