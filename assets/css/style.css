@@ -20,7 +20,9 @@ hr {
 
 }
 
-.game-area {
-    
-
+#win-message {
+    display: none;
+}
+#lose-message {
+    display: none;
 }

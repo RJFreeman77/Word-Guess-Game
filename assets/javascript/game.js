@@ -16,57 +16,75 @@ var monsterAry = [
 var currentLife = 10;
 var currentWordP = $("#currentWord");
 var lettersGuessed = $("#lettersGuessed");
-var lifePoints = $("#lifePoints");
-
+var lifePointsP = $("#lifePoints");
 
 $("#start-button").on("click", function () {
 
     currentWordP.html("");
     lettersGuessed.html("");
     startGame();
-
+    $("#start-button").html("Reset Game");
+    $("#lose-message").css("display", "none");
+    $("#win-message").css("display", "none");
 });
 
 function startGame() {
-    var currentLife = 10;
-    lifePoints.html(currentLife);
+    // set up initial game state
+    var isNotDuplicate = false;
+
+    // pick random monster
     var random = Math.floor(Math.random() * monsterAry.length);
     var tempMonster = monsterAry[random].toUpperCase();
-    console.log(random);
     console.log(tempMonster);
 
-    var hiddenWord = [];
+    // Dynamically set the life points based on number of unique characters
+    var uniqueChar = GetUnique(tempMonster).length;
+    var currentLife = Math.floor(uniqueChar * 1.5);
+    lifePointsP.text(currentLife);
 
+    // populate hidden word area
+    var hiddenWordAry = [];
     for (i = 0; i < tempMonster.length; i++) {
-        hiddenWord.push("_");
+        hiddenWordAry.push("_");
     }
 
-    console.log(hiddenWord);
-    var tempWord = hiddenWord.join(" ");
-
-    console.log(tempWord);
-    currentWordP.append(tempWord);
+    currentWordP.text(hiddenWordAry.join(" "));
 
     var userGuessAry = [];
     document.onkeydown = function (event) {
         var keyPress = event.key.toUpperCase();
+        // make sure user is not penalized for duplicate guess
+        if (userGuessAry.indexOf(keyPress) < 0) {
+            isNotDuplicate = true;
+        } else {
+            isNotDuplicate = false;
+        }
         var letterIndex = tempMonster.indexOf(keyPress);
-        var duplicateLetterCheck = userGuessAry.indexOf(keyPress);
-        if (letterIndex >= 0 && duplicateLetterCheck < 0) {
-            console.log("match");
-            // do for loop in here, compare each letter, relpace where you match
 
+        if (letterIndex >= 0 && isNotDuplicate) {
+            userGuessAry.push(keyPress);
+            for (j = 0; j < tempMonster.length; j++) {
+                if (keyPress === tempMonster[j]) {
+                    hiddenWordAry[j] = keyPress;
+                    currentWordP.text(hiddenWordAry.join(" "));
+                }
+            }
+            uniqueChar--;
+            if (uniqueChar === 0) {
+                console.log("You win");
+                $("#start-button").html("Next Monster");
+                $("#win-message").css("display", "block");
 
-            // need to figure out how to list out dashes for each letter. Then replace letters with correct guesses here.
-            // look at .split();
-            // will need to split on .ep() and then replace the _ with the letter
-            // maybe i can assign the letter to each "_" with the .data() function. Then, I can say, "if userGuess === $(this).data(x);"
-            // make each space a span
-        } else if (duplicateLetterCheck < 0) {
+            }
+        } else if (isNotDuplicate) {
             currentLife--;
-            lifePoints.html(currentLife);
+            lifePointsP.text(currentLife);
             userGuessAry.push(keyPress);
             lettersGuessed.append(" " + keyPress + ", ");
+            if (currentLife === 0) {
+                $("#lose-message").css("display", "block");
+                $("#start-button").html("Start Over");
+            }
         } else {
             console.log("already guessed");
         }
@@ -81,28 +99,13 @@ function startGame() {
 
 }
 
+function GetUnique(inputAry) {
+    var outputArray = [];
+    for (var k = 0; k < inputAry.length; k++) {
+        if ((jQuery.inArray(inputAry[k], outputArray)) == -1) {
+            outputArray.push(inputAry[k]);
+        }
+    }
+    return outputArray;
 
-
-
-
-
-// Need to be able to start the game. 
-//   set the user's hit points. 
-//   change the site layout to show the game. 
-// Set up array of words
-// get a way to randomly pick a word  (possibly order monsters by CR rating)
-// display picture of monster as a hint
-// find out the length of the word (there needs to be underlinned spaces indicating characters) Might accomplish this with doing the n'th something to do every other &nbsp
-// display the blank spaces for each blank character
-// set up variables to capture the user's key input. 
-// for loop to see if any of the characters match letters in the word
-// display the letters in their correct position if guessed correctly
-// display letters in the incorrect guesses area if they got it wrong
-//  -- I want to have a running tally of HP, rather than have it reset every time --
-// loss message if they lose. they get taken back to the home page. 
-// If they beat the monster, they get to go on to another monster
-// pick new word randomly from array, it cannot be one already chosen
-// display image of the monster
-// repeat steps above until user has either 
-//   run out of HP
-//   beaten all of the monsters
+}
