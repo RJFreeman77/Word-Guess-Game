@@ -3,40 +3,59 @@ var monsterAry = [
     "Goblin",
     "Dragon",
     "Beholder",
-    "Kracken",
-    "Sticky Goo",
+    "Kraken",
     "Aboleth",
     "Mind Flayer",
     "Wyvern",
     "Golem",
-    "Ghoul",
+    "Bugbear",
     "Wereboar",
     "Chimera",
 ];
-var currentLife = 10;
+var monsterPics = [
+    "assets/images/kobold-image.jpg",
+    "assets/images/goblin-image.jpg",
+    "assets/images/dragon-image.jpg",
+    "assets/images/beholder-image.jpg",
+    "assets/images/kraken-image.jpg",
+    "assets/images/aboleth-image.jpg",
+    "assets/images/mind-flayer-image.jpg",
+    "assets/images/wyvern-image.png",
+    "assets/images/golems-image.jpg",
+    "assets/images/bugbear-image.jpg",
+    "assets/images/wereboar-image.png",
+    "assets/images/chimera-image.jpg",
+
+];
+var monsterHints = [
+    "Noted for their skill at building traps and preparing ambushes, and mining. They are distinctly related to dragons, and are often found serving as their minions.", "Race of small goblinoids, often living in underground caverns near the surface known as lairs.","Very powerful and magical creatures. There are several types, defined by their colors, most common of which are chromatic and metallic.", "Sometimes called spheres of many eyes, or an eye tyrants. These large, orb-shaped beings had ten eyestalks and one central eye, each containing powerful magic.", "Large, ocean-dwelling magical beasts. They are akin to squids except much larger in size.", "Large, fist-like amphibians with powerful psionic powers.","Humanoid in appearance, but have an octopus-like head and tentacles.", "Large winged lizard with a stinging tail and sharp teeth. They had dark brown or grey bodies.", "Typically created from stone, these animated objects move like living creatures.", "Massive humanoid distantly related to, but larger and stronger than, goblins and hobgoblins.", "Once humans, these lycanthropes were turned after being bitten by another of their kind.", "Large magical beast that was a combination of several different creatures, namely a dragon, a goat, and a lion."
+];
 var currentWordP = $("#currentWord");
 var lettersGuessed = $("#lettersGuessed");
 var lifePointsP = $("#lifePoints");
 
 $("#start-button").on("click", function () {
 
-    currentWordP.html("");
-    lettersGuessed.html("");
+    currentWordP.html("&nbsp;");
+    lettersGuessed.html("&nbsp;");
     startGame();
     $("#start-button").html("Reset Game");
-    $("#lose-message").css("display", "none");
-    $("#win-message").css("display", "none");
 });
 
 function startGame() {
     // set up initial game state
+    $("#lose-message").css("display", "none");
+    $("#win-message").css("display", "none");
     var isNotDuplicate = false;
-
+    
     // pick random monster
     var random = Math.floor(Math.random() * monsterAry.length);
     var tempMonster = monsterAry[random].toUpperCase();
     console.log(tempMonster);
 
+    // Set image and hint
+    $("#monster-image").attr("src", monsterPics[random])
+    $("#hint").text(monsterHints[random])
     // Dynamically set the life points based on number of unique characters
     var uniqueChar = GetUnique(tempMonster).length;
     var currentLife = Math.floor(uniqueChar * 1.5);
@@ -47,9 +66,9 @@ function startGame() {
     for (i = 0; i < tempMonster.length; i++) {
         hiddenWordAry.push("_");
     }
-
     currentWordP.text(hiddenWordAry.join(" "));
 
+    // handeling user input
     var userGuessAry = [];
     document.onkeydown = function (event) {
         var keyPress = event.key.toUpperCase();
@@ -74,7 +93,6 @@ function startGame() {
                 console.log("You win");
                 $("#start-button").html("Next Monster");
                 $("#win-message").css("display", "block");
-
             }
         } else if (isNotDuplicate) {
             currentLife--;
@@ -88,15 +106,7 @@ function startGame() {
         } else {
             console.log("already guessed");
         }
-
-        console.log(keyPress);
-
-        console.log(userGuessAry);
-
     }
-
-
-
 }
 
 function GetUnique(inputAry) {
@@ -107,5 +117,4 @@ function GetUnique(inputAry) {
         }
     }
     return outputArray;
-
 }

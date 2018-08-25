@@ -8,16 +8,28 @@ html {
 hr {
     margin: 18px 0;
 }
+section {
+    min-height: 500px;
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.img-container {
+    height: 300px;
+    margin: 1rem;
+}
 .bg-dark {
     /* background-image: url(../images/tactile_noise_@2X.png); */
     height: 100%;
     background-position: center;
 } 
-
+.col {
+    padding: 2rem;
+}
 .jumbotron {
     padding-top: 1rem; 
     padding-bottom: 1rem;
-
 }
 
 #win-message {
