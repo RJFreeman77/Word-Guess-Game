@@ -15,9 +15,9 @@ var monsterAry = [
 var monsterPics = [
     "assets/images/kobold-image.jpg",
     "assets/images/goblin-image.jpg",
-    "assets/images/dragon-image.jpg",
+    "assets/images/dragon-image.jpeg",
     "assets/images/beholder-image.jpg",
-    "assets/images/kraken-image.jpg",
+    "assets/images/kracken-image.jpg",
     "assets/images/aboleth-image.jpg",
     "assets/images/mind-flayer-image.jpg",
     "assets/images/wyvern-image.png",
@@ -28,7 +28,18 @@ var monsterPics = [
 
 ];
 var monsterHints = [
-    "Noted for their skill at building traps and preparing ambushes, and mining. They are distinctly related to dragons, and are often found serving as their minions.", "Race of small goblinoids, often living in underground caverns near the surface known as lairs.","Very powerful and magical creatures. There are several types, defined by their colors, most common of which are chromatic and metallic.", "Sometimes called spheres of many eyes, or an eye tyrants. These large, orb-shaped beings had ten eyestalks and one central eye, each containing powerful magic.", "Large, ocean-dwelling magical beasts. They are akin to squids except much larger in size.", "Large, fist-like amphibians with powerful psionic powers.","Humanoid in appearance, but have an octopus-like head and tentacles.", "Large winged lizard with a stinging tail and sharp teeth. They had dark brown or grey bodies.", "Typically created from stone, these animated objects move like living creatures.", "Massive humanoid distantly related to, but larger and stronger than, goblins and hobgoblins.", "Once humans, these lycanthropes were turned after being bitten by another of their kind.", "Large magical beast that was a combination of several different creatures, namely a dragon, a goat, and a lion."
+    "Noted for their skill at building traps and preparing ambushes, and mining. They are distinctly related to dragons, and are often found serving as their minions.",
+    "Race of small goblinoids, often living in underground caverns near the surface known as lairs.",
+    "Very powerful and magical creatures. There are several types, defined by their colors, most common of which are chromatic and metallic.",
+    "Sometimes called spheres of many eyes, or an eye tyrants. These large, orb-shaped beings had ten eyestalks and one central eye, each containing powerful magic.",
+    "Large, ocean-dwelling magical beasts. They are akin to squids except much larger in size.",
+    "Large, fist-like amphibians with powerful psionic powers.",
+    "Humanoid in appearance, but have an octopus-like head and tentacles.",
+    "Large winged lizard with a stinging tail and sharp teeth. They had dark brown or grey bodies.",
+    "Typically created from stone, these animated objects move like living creatures.",
+    "Massive humanoid distantly related to, but larger and stronger than, goblins and hobgoblins.",
+    "Once humans, these lycanthropes were turned after being bitten by another of their kind.",
+    "Large magical beast that was a combination of several different creatures, namely a dragon, a goat, and a lion."
 ];
 var currentWordP = $("#currentWord");
 var lettersGuessed = $("#lettersGuessed");
@@ -47,7 +58,7 @@ function startGame() {
     $("#lose-message").css("display", "none");
     $("#win-message").css("display", "none");
     var isNotDuplicate = false;
-    
+
     // pick random monster
     var random = Math.floor(Math.random() * monsterAry.length);
     var tempMonster = monsterAry[random].toUpperCase();
